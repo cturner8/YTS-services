@@ -40,6 +40,9 @@ def filter_by_date(row, filter):
     dateFrom = datetime.now()
     dateTo = datetime.now()
 
+    if filter["dateFrom"] == "" and filter["dateTo"] == "":
+        return result
+
     if filter["dateFrom"] != "":
         dateFrom = datetime.fromisoformat(filter["dateFrom"])
     if filter["dateTo"] != "":
@@ -57,8 +60,11 @@ def filter_by_date(row, filter):
 
 def filter_data(row, filter):
     result = False
-    result = filter_by_title(row, filter)
-    result = filter_by_date(row, filter)
+
+    dateResult = filter_by_date(row, filter)
+    titleResult = filter_by_title(row, filter)
+
+    result = dateResult and titleResult
 
     return result
 
