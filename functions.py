@@ -114,12 +114,15 @@ def process_music(row, report):
 
     return report
 
+def get_data(filter):
+    data = generate_report(load_data(), filter)
+    data = sort_report(data)
+
+    return data
 
 def main():
     filter = capture_filters()
-
-    data = generate_report(load_data(), filter)
-    data = sort_report(data)
+    data = get_data(filter)
     save_data(data)
 
 
