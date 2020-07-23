@@ -13,23 +13,39 @@ def save_data(data):
         json.dump(data, outfile, indent=4)
 
 
-def generate_report(data):
+def filter_by_title(row, filter):
+    return filter["title"] in row["title"].lower() or filter["title"] is None
+
+
+def filter_data(row, filter):
+    result = False
+    result = filter_by_title(row, filter)
+
+    return result
+
+
+def generate_report(data, filter):
     report = {}
     report["youtube_count"] = 0
     report["youtube_music_count"] = 0
     report["channels"] = {}
+    report["raw_data"] = []
 
     for row in data:
-        if (row["header"] == "YouTube"):
-            report = process_video(row, report)
-        elif (row["header"] == "YouTube Music"):
-            report = process_music(row, report)
+        if filter_data(row, filter) == True:
+            if (row["header"] == "YouTube"):
+                report = process_video(row, report)
+            elif (row["header"] == "YouTube Music"):
+                report = process_music(row, report)
+
+            report["raw_data"].append(row)
 
     return report
 
 
 def sort_report(report):
-    report["channels"] = {k: v for k, v in sorted(report["channels"].items(), key=lambda item: item[1], reverse=True)}
+    report["channels"] = {k: v for k, v in sorted(
+        report["channels"].items(), key=lambda item: item[1], reverse=True)}
 
     return report
 
@@ -55,7 +71,12 @@ def process_music(row, report):
 
 
 def main():
-    data = generate_report(load_data())
+    filter = {}
+    title = input("What search filter would you like to add? ")
+
+    filter["title"] = title.lower()
+
+    data = generate_report(load_data(), filter)
     data = sort_report(data)
     save_data(data)
 
