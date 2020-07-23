@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 
 def load_data():
@@ -13,13 +14,51 @@ def save_data(data):
         json.dump(data, outfile, indent=4)
 
 
+def capture_filters():
+    filter = {}
+    filter["title"] = input(
+        "What search filter would you like to add? ").lower()
+    filter["dateFrom"] = input(
+        "When would you like to start the search from? ")
+    filter["dateTo"] = input("When would you like to end the search? ")
+
+    return filter
+
+
 def filter_by_title(row, filter):
-    return filter["title"] in row["title"].lower() or filter["title"] is None
+    result = True
+
+    if filter["title"] is not None:
+        result = filter["title"] in row["title"].lower()
+
+    return result
+
+
+def filter_by_date(row, filter):
+    result = True
+
+    dateFrom = datetime.now()
+    dateTo = datetime.now()
+
+    if filter["dateFrom"] != "":
+        dateFrom = datetime.fromisoformat(filter["dateFrom"])
+    if filter["dateTo"] != "":
+        dateTo = datetime.fromisoformat(filter["dateTo"])
+
+    time = datetime.fromisoformat(row["time"].replace("Z", ""))
+
+    if dateFrom <= dateTo:
+        result = dateFrom <= time <= dateTo
+    else:
+        result = dateFrom <= time or time <= dateTo
+
+    return result
 
 
 def filter_data(row, filter):
     result = False
     result = filter_by_title(row, filter)
+    result = filter_by_date(row, filter)
 
     return result
 
@@ -71,10 +110,7 @@ def process_music(row, report):
 
 
 def main():
-    filter = {}
-    title = input("What search filter would you like to add? ")
-
-    filter["title"] = title.lower()
+    filter = capture_filters()
 
     data = generate_report(load_data(), filter)
     data = sort_report(data)
