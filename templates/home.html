@@ -18,7 +18,10 @@
   </head>
   <body class="container-fluid">
     <nav class="navbar navbar-dark bg-dark">
-      <a class="navbar-brand">YouTube data summary</a>
+      <a class="navbar-brand">
+      <img src="{{ url_for('static',filename='assets/youtube.svg') }}" class="img-fluid" alt="" loading="lazy">
+      YouTube data summary
+      </a>
       <span class="navbar-text"
         >
         {% if has_filters %}
@@ -29,7 +32,7 @@
             {% endif %}
           {% endfor %}
         {% else %}
-        Here are the results of analysing your YouTube data
+        Analyse your YouTube data 
         {% endif %}
         </span
       >
@@ -37,7 +40,7 @@
     <div class="row">
       <div class="col contentDivs">
         {% if data.channels %}
-        <h2>Most popular channels (by videos watched)</h2>
+        <h2>Most popular channels</h2>
         <ul class="list-group">
           {% for key, value in data.channels.items() %}
           <li class="list-group-item">
