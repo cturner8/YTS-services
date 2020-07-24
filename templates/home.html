@@ -4,35 +4,54 @@
     <title>Basic Flask app</title>
     <link
       rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
       type="text/css"
       href="{{ url_for('static',filename='styles/style.css') }}"
     />
+
     <!-- <script src="{{url_for('static', filename='scripts/test.js')}}"></script> -->
   </head>
-  <body class="app">
-    <div class="nav">
-      <h1>YouTube data summary</h1>
-      <p>Here are the results of analysing your YouTube data:</p>
-    </div>
-    <div class="leftDiv">
-      {% if data.channels %}
-      <h2>Most popular channels</h2>
-      <ul>
-        {% for key, value in data.channels.items() %}
-        <li>{{key}} - <strong>{{value}}</strong></li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-    </div>
-    <div class="rightDiv">
-      {% if data.raw_data %}
-      <h2>Vidoes watched</h2>
-      <ul>
-        {% for item in data.raw_data %} {% if item.subtitles %}
-        <li>{{item.title}} - <strong>{{item.subtitles[0].name}}</strong></li>
-        {% endif %} {% endfor %}
-      </ul>
-      {% endif %}
+  <body class="container-fluid">
+    <nav class="navbar navbar-dark bg-dark">
+      <a class="navbar-brand">YouTube data summary</a>
+      <span class="navbar-text"
+        >Here are the results of analysing your YouTube data</span
+      >
+    </nav>
+    <div class="row">
+      <div class="col contentDivs">
+        {% if data.channels %}
+        <h2>Most popular channels (by videos watched)</h2>
+        <ul class="list-group">
+          {% for key, value in data.channels.items() %}
+          <li class="list-group-item">
+            <span class="leftAlign">{{key}}</span
+            ><span class="rightAlign"><strong>{{value}}</strong></span>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+      <div class="col contentDivs">
+        {% if data.raw_data %}
+        <h2>Videos watched</h2>
+        <ul class="list-group">
+          {% for item in data.raw_data %} {% if item.subtitles %}
+          <li class="list-group-item">
+            <span class="leftAlign">{{item.title}}</span>
+            <span class="rightAlign"
+              ><strong>{{item.subtitles[0].name}}</strong></span
+            >
+          </li>
+          {% endif %} {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
     </div>
   </body>
 </html>
