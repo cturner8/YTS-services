@@ -20,7 +20,18 @@
     <nav class="navbar navbar-dark bg-dark">
       <a class="navbar-brand">YouTube data summary</a>
       <span class="navbar-text"
-        >Here are the results of analysing your YouTube data</span
+        >
+        {% if has_filters %}
+        <strong>Filters:</strong> 
+          {% for key, value in filter.items() %}
+            {% if value != "" %}
+            {{key}} [<strong>{{value}}</strong>]
+            {% endif %}
+          {% endfor %}
+        {% else %}
+        Here are the results of analysing your YouTube data
+        {% endif %}
+        </span
       >
     </nav>
     <div class="row">

@@ -82,6 +82,7 @@ def generate_report(data, filter):
                 report = process_video(row, report)
             elif (row["header"] == "YouTube Music"):
                 report = process_music(row, report)
+            row["title"] = row["title"].replace("Watched", "")
 
             report["raw_data"].append(row)
 
@@ -114,11 +115,17 @@ def process_music(row, report):
 
     return report
 
+
 def get_data(filter):
     data = generate_report(load_data(), filter)
     data = sort_report(data)
 
     return data
+
+
+def has_filters(filter):
+    return filter["title"] != "" or filter["dateFrom"] != "" or filter["dateTo"] != ""
+
 
 def main():
     filter = capture_filters()
