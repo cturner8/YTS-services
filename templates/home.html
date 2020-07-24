@@ -7,6 +7,7 @@
       type="text/css"
       href="{{ url_for('static',filename='styles/style.css') }}"
     />
+    <!-- <script src="{{url_for('static', filename='scripts/test.js')}}"></script> -->
   </head>
   <body class="app">
     <div class="nav">
@@ -14,20 +15,24 @@
       <p>Here are the results of analysing your YouTube data:</p>
     </div>
     <div class="leftDiv">
+      {% if data.channels %}
       <h2>Most popular channels</h2>
       <ul>
         {% for key, value in data.channels.items() %}
         <li>{{key}} - <strong>{{value}}</strong></li>
         {% endfor %}
       </ul>
+      {% endif %}
     </div>
     <div class="rightDiv">
+      {% if data.raw_data %}
       <h2>Vidoes watched</h2>
       <ul>
         {% for item in data.raw_data %} {% if item.subtitles %}
         <li>{{item.title}} - <strong>{{item.subtitles[0].name}}</strong></li>
         {% endif %} {% endfor %}
       </ul>
+      {% endif %}
     </div>
   </body>
 </html>

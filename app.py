@@ -3,16 +3,17 @@ import functions
 
 app = Flask(__name__)
 
-filter = {}
-filter["title"] = ""
-filter["dateTo"] = ""
-filter["dateFrom"] = ""
 
-data = functions.get_data(filter)
+def get_info():
+    filter = {}
+    filter["title"] = ""
+    filter["dateTo"] = ""
+    filter["dateFrom"] = ""
+
+    return functions.get_data(filter)
 
 
 @app.route('/')
 def home():
-    print(data["youtube_count"])
 
-    return render_template("home.html", data=data)
+    return render_template("home.html", data=get_info())
