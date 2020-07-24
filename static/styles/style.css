@@ -1,11 +1,23 @@
+.app {
+  height: 100vh;
+}
+
 .leftDiv {
+  height: calc(100% - 7rem);
   float: left;
+  overflow-y: scroll;
+  width: 50%;
 }
 
 .rightDiv {
+  height: calc(100% - 7rem);
   float: right;
+  overflow-y: scroll;
+  width: 50%;
 }
 
 .nav {
   text-align: center;
+  height: 5rem;
+  margin-bottom: 2rem;
 }

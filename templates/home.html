@@ -8,7 +8,7 @@
       href="{{ url_for('static',filename='styles/style.css') }}"
     />
   </head>
-  <body>
+  <body class="app">
     <div class="nav">
       <h1>YouTube data summary</h1>
       <p>Here are the results of analysing your YouTube data:</p>
@@ -17,7 +17,7 @@
       <h2>Most popular channels</h2>
       <ul>
         {% for key, value in data.channels.items() %}
-        <li>{{key}} - {{value}}</li>
+        <li>{{key}} - <strong>{{value}}</strong></li>
         {% endfor %}
       </ul>
     </div>
@@ -25,7 +25,7 @@
       <h2>Vidoes watched</h2>
       <ul>
         {% for item in data.raw_data %} {% if item.subtitles %}
-        <li>{{item.title}} - {{item.subtitles[0].name}}</li>
+        <li>{{item.title}} - <strong>{{item.subtitles[0].name}}</strong></li>
         {% endif %} {% endfor %}
       </ul>
     </div>
