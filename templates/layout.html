@@ -23,9 +23,9 @@
 
     <script src="{{url_for('static', filename='scripts/index.js')}}"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script type=text/javascript>
+    {# <script type=text/javascript>
         handleClick()
-    </script>
+    </script> #}
   </head>
   <body class="container-fluid">
     <nav class="navbar navbar-dark bg-dark">
@@ -43,7 +43,7 @@
             {% endif %}
           {% endfor %}
         {% else %}
-        <a href=# id="test">Gain insight into your YouTube data</a>
+        <a href="/upload" id="test">Gain insight into your YouTube data</a>
         {% endif %}
         {% if session["name"] %}
         <span>Hello {{ session["name"] }}</span>

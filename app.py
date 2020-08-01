@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session
+from flask import Flask, render_template, session, redirect, url_for, jsonify, request
 from flask_minify import minify
 # from flask_bootstrap import Bootstrap
 import functions
@@ -11,28 +11,41 @@ app.secret_key = secret.secret_key
 minify(app=app, html=True, js=True, cssless=True)
 
 
-def get_info():
+@app.route('/search', methods=["GET", "POST"])
+def search_data():
     filter = {
         "title": "",
         "dateTo": "",
         "dateFrom": ""
     }
 
-    data = {
+    if request.method == "POST":
+        body = request.get_json()
+
+        filter["title"] = body.get("title")
+        filter["dateTo"] = body.get("dateTo")
+        filter["dateFrom"] = body.get("dateFrom")
+
+    response = {
         "items": functions.get_data(filter),
         "filter": filter
     }
 
-    return data
+    return response
 
 
 @app.route('/')
-def home():
-    data = get_info()
+def view():
+    data = search_data()
     filter = data["filter"]
     has_filters = functions.has_filters(filter)
 
-    return render_template("home.html", data=data["items"], filter=filter, has_filters=has_filters)
+    return render_template("view.html", data=data["items"], filter=filter, has_filters=has_filters)
+
+
+@app.route('/upload')
+def upload():
+    return render_template("upload.html")
 
 
 @app.route('/py_test')
@@ -42,4 +55,16 @@ def py_test():
     response = {
         "data": "test"
     }
+
+    redirect(url_for('upload'))
+
     return response
+
+
+@app.route('/testing', methods=['GET'])
+def testing():
+    response = {
+        "data": "hello"
+    }
+
+    return jsonify(response)
