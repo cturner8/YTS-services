@@ -1,10 +1,12 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, session
 from flask_minify import minify
 # from flask_bootstrap import Bootstrap
 import functions
+import secret
 
 app = Flask(__name__)
 # Bootstrap(app)
+app.secret_key = secret.secret_key
 
 minify(app=app, html=True, js=True, cssless=True)
 
@@ -35,6 +37,8 @@ def home():
 
 @app.route('/py_test')
 def py_test():
+    session["name"] = "cameron"
+
     response = {
         "data": "test"
     }

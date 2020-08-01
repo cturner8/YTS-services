@@ -21,6 +21,7 @@ env.json
 out.json
 /venv
 __pycache__
+secret.py
 
 npm-debug.log*
 yarn-debug.log*
