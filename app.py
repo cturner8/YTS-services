@@ -10,14 +10,16 @@ minify(app=app, html=True, js=True, cssless=True)
 
 
 def get_info():
-    filter = {}
-    filter["title"] = ""
-    filter["dateTo"] = ""
-    filter["dateFrom"] = ""
+    filter = {
+        "title": "",
+        "dateTo": "",
+        "dateFrom": ""
+    }
 
-    data = {}
-    data["items"] = functions.get_data(filter)
-    data["filter"] = filter
+    data = {
+        "items": functions.get_data(filter),
+        "filter": filter
+    }
 
     return data
 
@@ -29,3 +31,11 @@ def home():
     has_filters = functions.has_filters(filter)
 
     return render_template("home.html", data=data["items"], filter=filter, has_filters=has_filters)
+
+
+@app.route('/py_test')
+def py_test():
+    response = {
+        "data": "test"
+    }
+    return response
