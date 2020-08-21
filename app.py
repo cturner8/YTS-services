@@ -1,11 +1,11 @@
 from flask import Flask, render_template, session, redirect, url_for, jsonify, request
+
 from flask_minify import minify
 # from flask_bootstrap import Bootstrap
 import functions
 import secret
 
 app = Flask(__name__)
-# Bootstrap(app)
 app.secret_key = secret.secret_key
 
 minify(app=app, html=True, js=True, cssless=True)
@@ -26,10 +26,13 @@ def search_data():
         filter["dateTo"] = body.get("dateTo")
         filter["dateFrom"] = body.get("dateFrom")
 
-    response = {
+    response_body = {
         "items": functions.get_data(filter),
         "filter": filter
     }
+
+    response = jsonify(response_body)
+    response.headers.add('Access-Control-Allow-Origin', '*')
 
     return response
 
