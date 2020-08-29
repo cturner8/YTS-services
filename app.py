@@ -7,6 +7,7 @@ import secret
 
 app = Flask(__name__)
 app.secret_key = secret.secret_key
+app.config['JSON_SORT_KEYS'] = False
 
 minify(app=app, html=True, js=True, cssless=True)
 
