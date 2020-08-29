@@ -1,13 +1,14 @@
 from flask import Flask, render_template, session, redirect, url_for, jsonify, request
-
+from flask_cors import CORS
 from flask_minify import minify
-# from flask_bootstrap import Bootstrap
+
 import functions
 import secret
 
 app = Flask(__name__)
 app.secret_key = secret.secret_key
 app.config['JSON_SORT_KEYS'] = False
+CORS(app)
 
 minify(app=app, html=True, js=True, cssless=True)
 
@@ -28,8 +29,8 @@ def search_data():
         filter["dateFrom"] = body.get("dateFrom")
 
     response_body = {
-        "items": functions.get_data(filter),
-        "filter": filter
+        "filter": filter,
+        "items": functions.get_data(filter)
     }
 
     response = jsonify(response_body)
