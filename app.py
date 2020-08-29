@@ -25,10 +25,10 @@ def search_data():
     if request.method == "POST":
         body = request.get_json()
 
-        filter["title"] = body.get("title")
-        filter["dateTo"] = body.get("dateTo")
-        filter["dateFrom"] = body.get("dateFrom")
-        file_data = body.get("fileData")
+        filter["title"] = body.get("title", "")
+        filter["dateTo"] = body.get("dateTo", "")
+        filter["dateFrom"] = body.get("dateFrom", "")
+        file_data = body.get("fileData", [])
 
     response_body = {
         "filter": filter,

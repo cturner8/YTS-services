@@ -135,7 +135,7 @@ def has_filters(filter):
 
 def main():
     filter = capture_filters()
-    data = get_data(filter)
+    data = get_data(filter, [])
     save_data(data)
 
 
