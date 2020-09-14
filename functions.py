@@ -116,8 +116,14 @@ def process_music(row, report):
     return report
 
 
-def get_data(filter):
-    data = generate_report(load_data(), filter)
+def get_data(filter, file_data):
+    data = {}
+
+    if len(file_data) > 0:
+        data = generate_report(file_data, filter)
+    else:
+        data = generate_report(load_data(), filter)
+
     data = sort_report(data)
 
     return data
@@ -129,7 +135,7 @@ def has_filters(filter):
 
 def main():
     filter = capture_filters()
-    data = get_data(filter)
+    data = get_data(filter, [])
     save_data(data)
 
 

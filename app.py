@@ -20,17 +20,19 @@ def search_data():
         "dateTo": "",
         "dateFrom": ""
     }
+    file_data = []
 
     if request.method == "POST":
         body = request.get_json()
 
-        filter["title"] = body.get("title")
-        filter["dateTo"] = body.get("dateTo")
-        filter["dateFrom"] = body.get("dateFrom")
+        filter["title"] = body.get("title", "")
+        filter["dateTo"] = body.get("dateTo", "")
+        filter["dateFrom"] = body.get("dateFrom", "")
+        file_data = body.get("fileData", [])
 
     response_body = {
         "filter": filter,
-        "items": functions.get_data(filter)
+        "items": functions.get_data(filter, file_data)
     }
 
     response = jsonify(response_body)
