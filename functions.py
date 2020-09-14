@@ -133,6 +133,30 @@ def has_filters(filter):
     return filter["title"] != "" or filter["dateFrom"] != "" or filter["dateTo"] != ""
 
 
+def search_data(request):
+    filter = {
+        "title": "",
+        "dateTo": "",
+        "dateFrom": ""
+    }
+    file_data = []
+
+    if request.method == "POST":
+        body = request.get_json()
+
+        filter["title"] = body.get("title", "")
+        filter["dateTo"] = body.get("dateTo", "")
+        filter["dateFrom"] = body.get("dateFrom", "")
+        file_data = body.get("fileData", [])
+
+    response_body = {
+        "filter": filter,
+        "items": get_data(filter, file_data)
+    }
+
+    return response_body
+
+
 def main():
     filter = capture_filters()
     data = get_data(filter, [])

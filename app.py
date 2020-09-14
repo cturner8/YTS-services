@@ -15,25 +15,7 @@ minify(app=app, html=True, js=True, cssless=True)
 
 @app.route('/search', methods=["GET", "POST"])
 def search_data():
-    filter = {
-        "title": "",
-        "dateTo": "",
-        "dateFrom": ""
-    }
-    file_data = []
-
-    if request.method == "POST":
-        body = request.get_json()
-
-        filter["title"] = body.get("title", "")
-        filter["dateTo"] = body.get("dateTo", "")
-        filter["dateFrom"] = body.get("dateFrom", "")
-        file_data = body.get("fileData", [])
-
-    response_body = {
-        "filter": filter,
-        "items": functions.get_data(filter, file_data)
-    }
+    response_body = functions.search_data(request)
 
     response = jsonify(response_body)
     response.headers.add('Access-Control-Allow-Origin', '*')

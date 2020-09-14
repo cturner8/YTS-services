@@ -19,6 +19,7 @@
 .env.test.local
 .env.production.local
 env.json
+env2.json
 out.json
 /venv
 __pycache__
