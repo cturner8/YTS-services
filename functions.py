@@ -1,10 +1,14 @@
 import json
 from datetime import datetime
+from os import path
 
 
 def load_data():
-    with open("env.json", encoding="utf8") as json_file:
-        data = json.load(json_file)
+    data = []
+
+    if path.exists("env.json"):
+        with open("env.json", encoding="utf8") as json_file:
+            data = json.load(json_file)
 
     return data
 
