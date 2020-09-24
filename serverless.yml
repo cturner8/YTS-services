@@ -3,7 +3,7 @@ service: yts-data
 provider:
   name: google
   stage: dev
-  runtime: python37
+  runtime: python38
   region: europe-west2
   project: yts-data-289517
   credentials: ./.gcloud/keyfile.json
