@@ -22,10 +22,11 @@ package:
     - ./**
   include:
     - main.py
+    - functions.py
     - requirements.txt
 
 functions:
-  first:
-    handler: http
+  search:
+    handler: search_data
     events:
       - http: path
