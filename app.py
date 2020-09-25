@@ -1,9 +1,12 @@
 from flask import Flask, render_template, session, redirect, url_for, jsonify, request
 from flask_cors import CORS
 from flask_minify import minify
+from dotenv import load_dotenv
 
 import functions
 import secret
+
+load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = secret.secret_key
