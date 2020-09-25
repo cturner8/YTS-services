@@ -21,39 +21,3 @@ def search_data():
     response.headers.add('Access-Control-Allow-Origin', '*')
 
     return response
-
-
-@app.route('/')
-def view():
-    data = search_data()
-    filter = data["filter"]
-    has_filters = functions.has_filters(filter)
-
-    return render_template("view.html", data=data["items"], filter=filter, has_filters=has_filters)
-
-
-@app.route('/upload')
-def upload():
-    return render_template("upload.html")
-
-
-@app.route('/py_test')
-def py_test():
-    session["name"] = "cameron"
-
-    response = {
-        "data": "test"
-    }
-
-    redirect(url_for('upload'))
-
-    return response
-
-
-@app.route('/testing', methods=['GET'])
-def testing():
-    response = {
-        "data": "hello"
-    }
-
-    return jsonify(response)
