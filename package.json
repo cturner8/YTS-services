@@ -9,6 +9,7 @@
   "author": "serverless.com",
   "license": "MIT",
   "devDependencies": {
-    "serverless-google-cloudfunctions": "*"
+    "serverless-google-cloudfunctions": "*",
+    "serverless-prune-plugin": "^1.4.3"
   }
 }
