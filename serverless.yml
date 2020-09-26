@@ -29,6 +29,7 @@ package:
     - main.py
     - functions.py
     - requirements.txt
+    - serviceAccount.json
 
 functions:
   search:
