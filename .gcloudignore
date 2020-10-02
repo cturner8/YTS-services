@@ -21,3 +21,4 @@ static
 templates
 app.py
 README.md
+serviceAccount.json
