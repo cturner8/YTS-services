@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.py",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "functions-framework --target search_data --port 8081 --debug"
   },
   "author": "serverless.com",
   "license": "MIT",
